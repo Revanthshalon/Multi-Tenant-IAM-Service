@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="revanth"
+FROM rust:latest
+LABEL author="revanth"
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /usr/src/iam-service
+COPY . .
+
+RUN cargo build --release
+
+CMD ["./target/release/iam-service"]
