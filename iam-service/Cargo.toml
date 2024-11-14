@@ -1,0 +1,28 @@
+[package]
+name = "iam-service"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "iam-service"
+path = "src/main.rs"
+
+[dependencies]
+dotenvy.workspace = true
+thiserror.workspace = true
+axum.workspace = true
+tokio.workspace = true
+sqlx.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+argon2.workspace = true
+prost.workspace = true
+tonic.workspace = true
+
+[build-dependencies]
+tonic-build.workspace = true
