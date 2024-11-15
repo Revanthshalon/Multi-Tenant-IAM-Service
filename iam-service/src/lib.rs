@@ -1,16 +1,17 @@
-use std::sync::Arc;
 use crate::config::AppConfig;
 use crate::db::DbService;
-use tokio::net::TcpListener;
 use crate::repositories::RepositoryContainer;
 use crate::routes::create_api_routes;
 use crate::services::ServiceContainer;
+use std::sync::Arc;
+use tokio::net::TcpListener;
 
 pub mod config;
 pub mod db;
 pub mod entities;
 pub mod errors;
 pub mod handlers;
+pub mod models;
 pub mod repositories;
 pub mod routes;
 pub mod services;
@@ -31,10 +32,14 @@ pub async fn run_iam_service(
 
     let tcp_listener = match tcp_listener_option {
         Some(listener) => listener,
-        None => TcpListener::bind("localhost:5000").await.expect("Failed to bind to port 5000"),
+        None => TcpListener::bind("localhost:5000")
+            .await
+            .expect("Failed to bind to port 5000"),
     };
 
-    axum::serve(tcp_listener, routes.into_make_service()).await.map_err(|err| err.into())
+    axum::serve(tcp_listener, routes.into_make_service())
+        .await
+        .map_err(|err| err.into())
 }
 
 #[derive(Clone)]
@@ -51,3 +56,4 @@ impl AppState {
         }
     }
 }
+
